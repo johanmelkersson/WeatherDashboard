@@ -1,0 +1,51 @@
+/* Light theme (default) */
+:root,
+[data-theme='light'] {
+  --bg: #f0f4f8;
+  --surface: #ffffff;
+  --surface-hover: #f5f5f5;
+  --text: #1a202c;
+  --text-muted: #718096;
+  --border: #e2e8f0;
+  --accent: #3b82f6;
+  --error: #e53e3e;
+}
+
+/* Dark theme */
+[data-theme='dark'] {
+  --bg: #0f1117;
+  --surface: #1a1d27;
+  --surface-hover: #22263a;
+  --text: #e2e8f0;
+  --text-muted: #718096;
+  --border: #2d3748;
+  --accent: #60a5fa;
+  --error: #fc8181;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, 'Segoe UI', Roboto, sans-serif;
+  font-size: 16px;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+#root {
+  min-height: 100vh;
+}
