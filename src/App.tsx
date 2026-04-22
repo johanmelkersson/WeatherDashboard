@@ -13,7 +13,7 @@ function App() {
   return (
     <div className={styles.app}>
       <header className={styles.header}>
-        <h1 className={styles.title}>Väderprognos</h1>
+        <h1 className={styles.title}>Weather Dashboard</h1>
         <ThemeToggle theme={theme} onToggle={toggleTheme} />
       </header>
 
@@ -28,7 +28,7 @@ function App() {
 
             {forecast.length > 0 && (
               <section className={styles.forecast}>
-                <h3 className={styles.forecastTitle}>5-dagarsprognos</h3>
+                <h3 className={styles.forecastTitle}>5-Day Forecast</h3>
                 <div className={styles.forecastGrid}>
                   {forecast.map((day) => (
                     <ForecastCard key={day.date} day={day} />
@@ -40,7 +40,7 @@ function App() {
         )}
 
         {!current && !loading && !error && (
-          <p className={styles.placeholder}>Sök på en stad för att se vädret</p>
+          <p className={styles.placeholder}>Search for a city to see the weather</p>
         )}
       </main>
     </div>

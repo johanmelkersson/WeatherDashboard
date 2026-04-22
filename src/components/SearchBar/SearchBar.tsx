@@ -19,14 +19,14 @@ export function SearchBar({ onSearch, loading }: Props) {
       <input
         className={styles.input}
         type="text"
-        placeholder="Sök stad..."
+        placeholder="Search city..."
         value={value}
         onChange={(e) => setValue(e.target.value)}
         disabled={loading}
-        aria-label="Sök stad"
+        aria-label="Search city"
       />
       <button className={styles.button} type="submit" disabled={loading || !value.trim()}>
-        {loading ? '...' : 'Sök'}
+        {loading ? '...' : 'Search'}
       </button>
     </form>
   );

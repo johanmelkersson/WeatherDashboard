@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react';
-import { fetchCurrentWeather, fetchForecast } from '../api/weather';
-import type { CurrentWeatherData, DailyForecast, ForecastItem } from '../types/weather';
+import { fetchCurrentWeather, fetchForecast } from '../api/weatherApi';
+import type { CurrentWeatherData, DailyForecast, ForecastItem } from '../types/weatherTypes';
 
 interface WeatherState {
   current: CurrentWeatherData | null;
@@ -27,7 +27,7 @@ function groupForecastByDay(items: ForecastItem[]): DailyForecast[] {
       const temps = items.map((i) => i.main.temp);
       const noon = items.find((i) => i.dt_txt.includes('12:00')) ?? items[Math.floor(items.length / 2)];
       const d = new Date(date + 'T12:00:00');
-      const dayLabel = d.toLocaleDateString('sv-SE', { weekday: 'short' });
+      const dayLabel = d.toLocaleDateString('en-US', { weekday: 'short' });
 
       return {
         date,
@@ -68,7 +68,7 @@ export function useWeather() {
       setState((s) => ({
         ...s,
         loading: false,
-        error: err instanceof Error ? err.message : 'Något gick fel',
+        error: err instanceof Error ? err.message : 'Something went wrong',
       }));
     }
   }, []);

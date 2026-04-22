@@ -1,4 +1,4 @@
-import type { DailyForecast } from '../../types/weather';
+import type { DailyForecast } from '../../types/weatherTypes';
 import styles from './ForecastCard.module.css';
 
 interface Props {

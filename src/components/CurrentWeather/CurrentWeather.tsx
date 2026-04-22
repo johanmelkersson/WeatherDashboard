@@ -1,4 +1,4 @@
-import type { CurrentWeatherData } from '../../types/weather';
+import type { CurrentWeatherData } from '../../types/weatherTypes';
 import styles from './CurrentWeather.module.css';
 
 interface Props {
@@ -21,9 +21,9 @@ export function CurrentWeather({ data }: Props) {
       </div>
       <p className={styles.description}>{descCapitalized}</p>
       <div className={styles.details}>
-        <span>Känns som {Math.round(data.main.feels_like)}°C</span>
-        <span>Luftfuktighet {data.main.humidity}%</span>
-        <span>Vind {Math.round(data.wind.speed)} m/s</span>
+        <span>Feels like {Math.round(data.main.feels_like)}°C</span>
+        <span>Humidity {data.main.humidity}%</span>
+        <span>Wind {Math.round(data.wind.speed)} m/s</span>
       </div>
     </div>
   );

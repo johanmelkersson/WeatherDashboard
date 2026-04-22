@@ -11,8 +11,8 @@ export function ThemeToggle({ theme, onToggle }: Props) {
     <button
       className={styles.button}
       onClick={onToggle}
-      aria-label={`Byt till ${theme === 'light' ? 'mörkt' : 'ljust'} läge`}
-      title={`Byt till ${theme === 'light' ? 'mörkt' : 'ljust'} läge`}
+      aria-label={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
+      title={`Switch to ${theme === 'light' ? 'dark' : 'light'} mode`}
     >
       {theme === 'light' ? '🌙' : '☀️'}
     </button>
