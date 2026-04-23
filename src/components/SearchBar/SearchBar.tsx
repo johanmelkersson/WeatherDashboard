@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useState } from 'react';
 import styles from './SearchBar.module.css';
 
 interface Props {
@@ -9,13 +9,8 @@ interface Props {
 export function SearchBar({ onSearch, loading }: Props) {
   const [value, setValue] = useState('');
 
-  function handleSubmit(e: FormEvent) {
-    e.preventDefault();
-    onSearch(value);
-  }
-
   return (
-    <form className={styles.form} onSubmit={handleSubmit}>
+    <form className={styles.form} onSubmit={(e) => { e.preventDefault(); onSearch(value); }}>
       <input
         className={styles.input}
         type="text"

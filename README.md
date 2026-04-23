@@ -1,73 +1,58 @@
-# React + TypeScript + Vite
+# Weather Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A weather dashboard built with React and TypeScript that displays current weather conditions and a 5-day forecast for any city in the world.
 
-Currently, two official plugins are available:
+**Live demo:** https://johanmelkersson.github.io/WeatherDashboard/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Features
 
-## React Compiler
+- Search for any city
+- Current weather — temperature, feels like, humidity, wind speed
+- 5-day forecast with min/max temperatures
+- Dark / light mode toggle (persists across sessions)
+- Weather icons from OpenWeatherMap
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech Stack
 
-## Expanding the ESLint configuration
+- React 19
+- TypeScript
+- Vite
+- CSS Modules
+- OpenWeatherMap API
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Project Structure
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── types/weatherTypes.ts        # TypeScript interfaces mirroring the API response
+├── api/weatherApi.ts            # Fetch functions for current weather and forecast
+├── hooks/
+│   ├── useWeather.ts            # Data fetching, state management, forecast grouping
+│   └── useTheme.ts              # Dark/light mode toggle with localStorage persistence
+└── components/
+    ├── SearchBar/               # Controlled input form
+    ├── CurrentWeather/          # Current conditions card
+    ├── ForecastCard/            # Single day forecast card
+    └── ThemeToggle/             # Theme switch button
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+1. Get a free API key at [openweathermap.org](https://openweathermap.org/api)
+2. Create a `.env.local` file in the project root:
+   ```
+   VITE_OPENWEATHER_API_KEY=your_api_key_here
+   ```
+3. Install dependencies and start the dev server:
+   ```
+   npm install
+   npm run dev
+   ```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Deployment
+
+This project is deployed to GitHub Pages using the `gh-pages` package.
+
+```
+npm run deploy
 ```
