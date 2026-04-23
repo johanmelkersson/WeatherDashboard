@@ -36,7 +36,7 @@ export interface ForecastItem {
 
 export interface ForecastData {
   list: ForecastItem[];
-  city: { name: string; country: string };
+  city: { name: string; country: string; timezone: number };
 }
 
 export interface DailyForecast {

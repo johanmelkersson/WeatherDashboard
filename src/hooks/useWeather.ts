@@ -9,7 +9,7 @@ interface WeatherState {
   error: string | null;
 }
 
-function groupForecastByDay(items: ForecastItem[]): DailyForecast[] {
+function groupForecastByDay(items: ForecastItem[], timezoneOffsetSeconds: number): DailyForecast[] {
   const days = new Map<string, ForecastItem[]>();
 
   for (const item of items) {
@@ -25,7 +25,15 @@ function groupForecastByDay(items: ForecastItem[]): DailyForecast[] {
     .slice(0, 5)
     .map(([date, items]) => {
       const temps = items.map((i) => i.main.temp);
-      const noon = items.find((i) => i.dt_txt.includes('12:00')) ?? items[Math.floor(items.length / 2)];
+      // Find the entry closest to local noon in the city's timezone
+      const NOON_SECONDS = 12 * 3600;
+      const representative = items.reduce((best, item) => {
+        const localSecondsOfDay = (item.dt + timezoneOffsetSeconds) % 86400;
+        const bestLocalSecondsOfDay = (best.dt + timezoneOffsetSeconds) % 86400;
+        return Math.abs(localSecondsOfDay - NOON_SECONDS) < Math.abs(bestLocalSecondsOfDay - NOON_SECONDS)
+          ? item
+          : best;
+      });
       const d = new Date(date + 'T12:00:00');
       const dayLabel = d.toLocaleDateString('en-US', { weekday: 'short' });
 
@@ -34,8 +42,8 @@ function groupForecastByDay(items: ForecastItem[]): DailyForecast[] {
         dayLabel: dayLabel.charAt(0).toUpperCase() + dayLabel.slice(1),
         tempMin: Math.round(Math.min(...temps)),
         tempMax: Math.round(Math.max(...temps)),
-        icon: noon.weather[0].icon,
-        description: noon.weather[0].description,
+        icon: representative.weather[0].icon,
+        description: representative.weather[0].description,
       };
     });
 }
@@ -60,7 +68,7 @@ export function useWeather() {
       ]);
       setState({
         current,
-        forecast: groupForecastByDay(forecastData.list),
+        forecast: groupForecastByDay(forecastData.list, forecastData.city.timezone),
         loading: false,
         error: null,
       });
